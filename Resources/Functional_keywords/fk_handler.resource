@@ -1,3 +1,3 @@
 *** Settings ***
-Resource          fk_temp_keywords.resource
-Resource          fk_temp_keywords_1.resource
+Resource          fk_artur.resource
+Resource          fk_leonid.resource
