@@ -78,6 +78,24 @@ Zadanie - WHILE Loop
     END
     Wait Until Keyword Succeeds    3x    200ms    Log    Czekamy aż licznik osiągnie 5
     
+Zadanie - Try Except
+    [Documentation]    Napisz test, który otworzy stronę https://www.google.com,
+    ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
+    TRY
+        Log    To jest próba wykonania keyworda, który może się nie powieść.
+        Fail    Celowo wywołujemy błąd, aby przetestować blok EXCEPT
+    EXCEPT
+        Log    Wystąpił błąd podczas wykonywania keyworda. Obsługujemy wyjątek.
+    END
+
+
+    TRY
+        Log    To jest próba wykonania keyworda, który może się nie powieść.
+        Fail    Celowo wywołujemy błąd, aby przetestować blok EXCEPT
+    EXCEPT
+        Log    Wystąpił błąd podczas wykonywania keyworda. Obsługujemy wyjątek.
+        Fail    Celowo wywołujemy błąd, aby przetestować Fail Test Case
+    END
 
 *** Keywords ***
 Example Keyword
