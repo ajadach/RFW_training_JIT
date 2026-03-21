@@ -73,7 +73,17 @@ Optional Arguments: List & Dict
     Log    Lista argumentów: ${args}
     Log    Słownik argumentów: ${kwargs}
     Log    Imię: ${name}
-  
+
+Example Keyword: Open Browser via ${user}
+    [Documentation]    Przykład użycia embedded arguments
+    Log    Ten keyword ma embedded argument, więc nie musimy przekazywać żadnych argumentów, a on i tak wykona się poprawnie
+
+Example Keyword: Open Browser via ${user} with password
+    [Documentation]    Przykład użycia embedded arguments
+    [Arguments]    ${pwd}
+    Log    Ten keyword ma embedded argument, więc nie musimy przekazywać żadnych argumentów, a on i tak wykona się poprawnie
+
+
 *** Comments ***
 This is a comment in the resource file.
 

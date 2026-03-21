@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Szkolenie 1 - Podstawy Robot Framework
-Resource          Resources${/}Functional_keywords${/}fk_handler.resource
+Resource          ../Resources${/}Functional_keywords${/}fk_handler.resource
 
 Test Tags       artur
 
@@ -115,6 +115,13 @@ Zadanie Optional Arguments: List & Dict
     fk_artur.Optional Arguments: List & Dict    Item 1    Item 2    Item 3    Item 4    key1=value1    key2=value2    key3=value3  # wszystkie argumenty trafia do @{args} i &{kwargs}, a name przyjmie wartość defaultową
     fk_artur.Optional Arguments: List & Dict    Item 1    Item 2    Item 3    Item 4    key1=value1    key2=value2    key3=value3    name=Artur  # wszystkie argumenty trafia do @{args} i &{kwargs}, a name się wywali bo Item 1 będzie już name więc mamy error: "Keyword 'fk_artur.Optional Arguments: List & Dict' got multiple values for argument 'name'."
 
+Zadanie Embedded Arguments
+    [Documentation]    Napisz test, który otworzy stronę https://www.google.com,
+    ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
+    [Tags]    embedded_args
+    fk_artur.Example Keyword: Open Browser via Admin  # ten keyword ma embedded argument, więc nie musimy przekazywać żadnych argumentów, a on i tak wykona się poprawnie
+    fk_artur.Example Keyword: Open Browser via User1  # ten keyword ma embedded argument, więc nie musimy przekazywać żadnych argumentów, a on i tak wykona się poprawnie
+    fk_artur.Example Keyword: Open Browser via Admin with password    moje_haslo
 
 *** Keywords ***
 Example Keyword

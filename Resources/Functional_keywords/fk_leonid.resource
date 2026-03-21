@@ -1,6 +1,5 @@
 *** Settings ***
-Library    BuiltIn
-Library    Collections
+Resource          lib_handler.resource
 
 *** Variables ***
 ${KEYWORD_1}    Example Keyword
