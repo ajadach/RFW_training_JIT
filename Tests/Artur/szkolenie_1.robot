@@ -11,7 +11,7 @@ ${FLOAT_VAR}    ${3.14}
 @{LIST_VAR}    Item 1    Item 2    Item 3    Item 4
 @{LIST_INT_VAR}    ${12}    ${19}    ${25}
 &{DICT_VAR}    key1=value1    key2=value2    key3=value3
-
+${name_error}    zmienna_name_error
 
 *** Test Cases ***
 Zadanie - Loop
@@ -24,16 +24,14 @@ Zadanie - Loop
 Zadanie - Dictionary Loop
     [Documentation]    Napisz test, który otworzy stronę https://www.google.com,
     ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
-    [Tags]    pawel
-    Log    Rbimy loop'a z dictem po key i val
-    FOR    ${key}    ${value}    IN    &{DICT_VAR}
-        Log    Iteracja ${key}: ${value}
-    END
-
-    Log    Robimy loop'a z dictem a item to tupla
-    FOR    ${item}    IN    &{DICT_VAR}
-        Log    Iteracja ${item}[0]: ${item}[1]
-    END
+    [Tags]    pawel  
+    # zmienna ${DICT_VAR} to positional argument, a zmienna "name" to named argument, więc kolejność ma znaczenie
+    fk_artur.Keyword Dict And Positional And Named Arguments      ${DICT_VAR}    # poprawna forma
+    fk_artur.Keyword Dict And Positional And Named Arguments      ${DICT_VAR}    Artur  # poprawna forma
+    fk_artur.Keyword Dict And Positional And Named Arguments      ${DICT_VAR}    name=Artur  # poprawna forma
+    Run Keyword And Expect Error    *    fk_artur.Keyword Dict And Positional And Named Arguments      ${DICT_VAR}    ${name}=Artur  # to się wywali, bo nie ma zmiennej ${name}
+    fk_artur.Keyword Dict And Positional And Named Arguments      ${DICT_VAR}    ${name_error}=Artur  # to się nie wywali, ale zmienna name bedzie  ${name}='zmienna_name_error=Artur' w 14 linii
+    Run Keyword And Expect Error    *    fk_artur.Keyword Dict And Positional And Named Arguments      name=Artur    ${DICT_VAR}  # nie poprawna forma -> "Keyword 'fk_artur.Keyword Dict And Positional And Named Arguments  ' got positional argument after named argument."
 
 Zadanie - IF Condition
     [Documentation]    Napisz test, który otworzy stronę https://www.google.com,
@@ -85,6 +83,18 @@ Zadanie - SKIP
     ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
     [Tags]    not_ready    DEFECT_NPS-1234
     Skip    Ten test jest pomijany, ponieważ nie jest jeszcze gotowy do uruchomienia.
+
+
+Zadanie Optional Arguments: List
+    [Documentation]    Przypadki użycia  Optional Arguments z listą
+    [Tags]    optional_args
+    fk_artur.Optional Arguments: List  # bardzo ryzkowna forma, bo przekazujemy pustą listę i defaultową wartość dla name - to może być zawsze zielony keyword
+    fk_artur.Optional Arguments: List    Item 1    Item 2    Item 3    Item 4  # wszystkie argumenty trafia do @{args}, a name przyjmie wartość defaultową
+    fk_artur.Optional Arguments: List    Item 1    Item 2    Item 3    Item 4    name=Artur  # wszystkie argumenty trafia do @{args}, a name przyjmie wartość z argumentu
+    fk_artur.Optional Arguments: List    name=Artur  # przekazujemy tylko named argument, a lista jest pusta, a name przyjmuje wartość z argumentu, więc LOOP sięnie wykona
+    fk_artur.Optional Arguments: List    ${LIST_VAR}  # wykona sie jeden loop bo cała ${LIST_VAR} trafi do args jako jeden argument, a name przyjmie wartość defaultową
+    fk_artur.Optional Arguments: List    @{LIST_VAR}  # wykona sie 4 loop bo każdy element z ${LIST_VAR} trafi do args jako osobny argument, a name przyjmie wartość defaultową
+
 
 *** Keywords ***
 Example Keyword
