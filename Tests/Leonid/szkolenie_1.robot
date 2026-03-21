@@ -19,4 +19,4 @@ Zadanie - Loop
     ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
     [Tags]    leonid
     Log    Robimy loop'a
-    fk_temp_keywords_1.Keyword Loop Examples    ${LIST_VAR}    ${INT_VAR}    ${LIST_INT_VAR}
+    fk_leonid.Keyword Loop Examples    ${LIST_VAR}    ${INT_VAR}    ${LIST_INT_VAR}

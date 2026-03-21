@@ -19,7 +19,7 @@ Zadanie - Loop
     ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
     [Tags]    artur
     Log    Robimy loop'a
-    fk_temp_keywords.Keyword Loop Examples    ${LIST_VAR}    ${INT_VAR}    ${LIST_INT_VAR}
+    fk_artur.Keyword Loop Examples    ${LIST_VAR}    ${INT_VAR}    ${LIST_INT_VAR}
 
 Zadanie - Dictionary Loop
     [Documentation]    Napisz test, który otworzy stronę https://www.google.com,
