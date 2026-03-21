@@ -86,16 +86,11 @@ Zadanie - Try Except
         Fail    Celowo wywołujemy błąd, aby przetestować blok EXCEPT
     EXCEPT
         Log    Wystąpił błąd podczas wykonywania keyworda. Obsługujemy wyjątek.
+        Fail    Test nie powiódł się z powodu błędu, ale został obsłużony w bloku EXCEPT.
+   FINALLY
+        Log    Ten blok zostanie wykonany niezależnie od tego, czy wystąpił błąd, czy nie.        
     END
 
-
-    TRY
-        Log    To jest próba wykonania keyworda, który może się nie powieść.
-        Fail    Celowo wywołujemy błąd, aby przetestować blok EXCEPT
-    EXCEPT
-        Log    Wystąpił błąd podczas wykonywania keyworda. Obsługujemy wyjątek.
-        Fail    Celowo wywołujemy błąd, aby przetestować Fail Test Case
-    END
 
 *** Keywords ***
 Example Keyword
