@@ -87,13 +87,33 @@ Zadanie - SKIP
 
 Zadanie Optional Arguments: List
     [Documentation]    Przypadki użycia  Optional Arguments z listą
-    [Tags]    optional_args
+    [Tags]    optional_args_list
     fk_artur.Optional Arguments: List  # bardzo ryzkowna forma, bo przekazujemy pustą listę i defaultową wartość dla name - to może być zawsze zielony keyword
     fk_artur.Optional Arguments: List    Item 1    Item 2    Item 3    Item 4  # wszystkie argumenty trafia do @{args}, a name przyjmie wartość defaultową
     fk_artur.Optional Arguments: List    Item 1    Item 2    Item 3    Item 4    name=Artur  # wszystkie argumenty trafia do @{args}, a name przyjmie wartość z argumentu
-    fk_artur.Optional Arguments: List    name=Artur  # przekazujemy tylko named argument, a lista jest pusta, a name przyjmuje wartość z argumentu, więc LOOP sięnie wykona
-    fk_artur.Optional Arguments: List    ${LIST_VAR}  # wykona sie jeden loop bo cała ${LIST_VAR} trafi do args jako jeden argument, a name przyjmie wartość defaultową
-    fk_artur.Optional Arguments: List    @{LIST_VAR}  # wykona sie 4 loop bo każdy element z ${LIST_VAR} trafi do args jako osobny argument, a name przyjmie wartość defaultową
+    fk_artur.Optional Arguments: List    Artur    Item 1    Item 2    Item 3    Item 4  # wszystkie argumenty trafia do @{args}, a name przyjmie wartość z argumentu
+    fk_artur.Optional Arguments: List    name=Artur    # przekazujemy tylko named argument, a lista jest pusta, a name przyjmuje wartość z argumentu, więc LOOP sięnie wykona
+    fk_artur.Optional Arguments: List    ${LIST_VAR}    # wykona sie jeden loop bo cała ${LIST_VAR} trafi do args jako jeden argument, a name przyjmie wartość defaultową
+    fk_artur.Optional Arguments: List    @{LIST_VAR}    # wykona sie 4 loop bo każdy element z ${LIST_VAR} trafi do args jako osobny argument, a name przyjmie wartość defaultową
+    Run Keyword And Expect Error    *    fk_artur.Optional Arguments: List    name=Artur    ${LIST_VAR}    # to się wywali, bo przekazujemy positional argument po named argument, a to jest niepoprawna forma
+
+Zadanie Optional Arguments: Dict
+    [Documentation]    Przypadki użycia  Optional Arguments z dictionary
+    [Tags]    optional_args_dict
+    fk_artur.Optional Arguments: Dictionary  # bardzo ryzkowna forma, bo przekazujemy pusty słownik i defaultową wartość dla name - to może być zawsze zielony keyword
+    fk_artur.Optional Arguments: Dictionary    key1=value1    key2=value2    key3=value3  # wszystkie argumenty trafia do &{kwargs}, a name przyjmie wartość defaultową
+    fk_artur.Optional Arguments: Dictionary    key1=value1    key2=value2    key3=value3    name=Artur  # wszystkie argumenty trafia do &{kwargs}, a name przyjmie wartość z argumentu
+    fk_artur.Optional Arguments: Dictionary    name=Artur    # przekazujemy tylko named argument, a słownik jest pusty, a name przyjmuje wartość z argumentu
+    fk_artur.Optional Arguments: Dictionary    name=Artur    key1=value1    key2=value2    key3=value3  # to się wywali, bo przekazujemy positional argument po named argument, a to jest niepoprawna forma
+
+Zadanie Optional Arguments: List & Dict
+    [Documentation]   Przypadki użycia  Optional Arguments z listą i dictionary
+    [Tags]    optional_args_list_dict
+    fk_artur.Optional Arguments: List & Dict  # bardzo ryzkowna forma, bo przekazujemy pustą listę i pusty słownik i defaultową wartość dla name - to może być zawsze zielony keyword
+    fk_artur.Optional Arguments: List & Dict    Item 1    Item 2    Item 3    Item 4  # wszystkie argumenty trafia do @{args}, a name przyjmie wartość defaultową, a słownik będzie pusty
+    fk_artur.Optional Arguments: List & Dict    key1=value1    key2=value2    key3=value3  # wszystkie argumenty trafia do &{kwargs}, a name przyjmie wartość defaultową, a lista będzie pusta
+    fk_artur.Optional Arguments: List & Dict    Item 1    Item 2    Item 3    Item 4    key1=value1    key2=value2    key3=value3  # wszystkie argumenty trafia do @{args} i &{kwargs}, a name przyjmie wartość defaultową
+    fk_artur.Optional Arguments: List & Dict    Item 1    Item 2    Item 3    Item 4    key1=value1    key2=value2    key3=value3    name=Artur  # wszystkie argumenty trafia do @{args} i &{kwargs}, a name się wywali bo Item 1 będzie już name więc mamy error: "Keyword 'fk_artur.Optional Arguments: List & Dict' got multiple values for argument 'name'."
 
 
 *** Keywords ***
