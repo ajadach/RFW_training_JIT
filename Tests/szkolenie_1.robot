@@ -28,10 +28,25 @@ Zadanie - Loop
     END
     FOR    ${index}    ${value}    IN ENUMERATE    @{LIST_VAR}
         Log    Iteracja ${index}: ${value}
+        FOR    ${item1}    ${item2}    IN ZIP    ${LIST_VAR}    ${LIST_INT_VAR}
+            Log    Iteracja: ${item1} - ${item2}
+        END
     END
-    FOR    ${item1}    ${item2}    IN ZIP    ${LIST_VAR}    ${LIST_INT_VAR}
-        Log    Iteracja: ${item1} - ${item2}
+
+Zadanie - Dictionary Loop
+    [Documentation]    Napisz test, który otworzy stronę https://www.google.com,
+    ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
+    Log    Robimy loop'a z dictem po key i val
+    FOR    ${key}    ${value}    IN    &{DICT_VAR}
+        Log    Iteracja ${key}: ${value}
     END
+
+    Log    Robimy loop'a z dictem a item to tupla
+    FOR    ${item}    IN    &{DICT_VAR}
+        Log    Iteracja ${item}[0]: ${item}[1]
+    END
+
+
 
 *** Keywords ***
 Example Keyword
