@@ -1,5 +1,8 @@
 *** Settings ***
 Documentation     Szkolenie 1 - Podstawy Robot Framework
+Resource          Resources${/}Functional_keywords${/}fk_handler.resource
+
+Test Tags       artur
 
 *** Variables ***
 ${STR_VAR}    Hello, Robot Framework!
@@ -9,34 +12,20 @@ ${FLOAT_VAR}    ${3.14}
 @{LIST_INT_VAR}    ${12}    ${19}    ${25}
 &{DICT_VAR}    key1=value1    key2=value2    key3=value3
 
+
 *** Test Cases ***
 Zadanie - Loop
     [Documentation]    Napisz test, który otworzy stronę https://www.google.com,
     ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
+    [Tags]    artur
     Log    Robimy loop'a
-    FOR    ${i}    IN    @{LIST_VAR}
-        Log    Iteracja ${i}
-    END
-    FOR    ${i}    IN    Artur   Marcin    Piotr    ${12}    ${19}    ${25}
-        Log    Iteracja ${i}
-    END    
-    FOR    ${i}    IN RANGE    0    5
-        Log    Iteracja ${i}
-    END
-    FOR    ${i}    IN RANGE    ${INT_VAR} + 5
-        Log    Iteracja ${i}
-    END
-    FOR    ${index}    ${value}    IN ENUMERATE    @{LIST_VAR}
-        Log    Iteracja ${index}: ${value}
-        FOR    ${item1}    ${item2}    IN ZIP    ${LIST_VAR}    ${LIST_INT_VAR}
-            Log    Iteracja: ${item1} - ${item2}
-        END
-    END
+    fk_temp_keywords.Keyword Loop Examples    ${LIST_VAR}    ${INT_VAR}    ${LIST_INT_VAR}
 
 Zadanie - Dictionary Loop
     [Documentation]    Napisz test, który otworzy stronę https://www.google.com,
     ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
-    Log    Robimy loop'a z dictem po key i val
+    [Tags]    pawel
+    Log    Rbimy loop'a z dictem po key i val
     FOR    ${key}    ${value}    IN    &{DICT_VAR}
         Log    Iteracja ${key}: ${value}
     END
@@ -91,6 +80,11 @@ Zadanie - Try Except
         Log    Ten blok zostanie wykonany niezależnie od tego, czy wystąpił błąd, czy nie.        
     END
 
+Zadanie - SKIP
+    [Documentation]    Napisz test, który otworzy stronę https://www.google.com,
+    ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
+    [Tags]    not_ready    DEFECT_NPS-1234
+    Skip    Ten test jest pomijany, ponieważ nie jest jeszcze gotowy do uruchomienia.
 
 *** Keywords ***
 Example Keyword
