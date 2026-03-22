@@ -103,3 +103,4 @@ Petstore Via Lib
     fk_petstore_lib.LIB Open Session
     ${pet_body}    fk_data_generator.Pet: Create Pet - Generate Json
     fk_petstore_lib.LIB Pet: Create Pet    ${pet_body}
+    Log    ${ENV_VAR.url_petstore}

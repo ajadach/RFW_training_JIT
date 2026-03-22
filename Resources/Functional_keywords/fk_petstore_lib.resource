@@ -6,7 +6,7 @@ Resource          lib_handler.resource
 *** Keywords ***
 LIB Open Session
     [Documentation]    Keyword to open a session with the Petstore API.
-    petstore_lib.LIB Open Session    https://petstore.swagger.io/v2
+    petstore_lib.LIB Open Session    ${ENV_VAR.url_petstore}
 
 LIB Pet: Create Pet
     [Documentation]    Create a new pet with given details and return the response. We add "Pet: " prefix to the keyword name to indicate that it's related to pet operations.
