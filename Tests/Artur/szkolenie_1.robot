@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Szkolenie 1 - Podstawy Robot Framework
-Resource          ../Resources${/}Functional_keywords${/}fk_handler.resource
+Resource          ../Resources${/}Generic_keywords${/}gk_handler.resource
 
 Test Tags       artur
 
@@ -13,7 +13,23 @@ ${FLOAT_VAR}    ${3.14}
 &{DICT_VAR}    key1=value1    key2=value2    key3=value3
 ${name_error}    zmienna_name_error
 
+
+
 *** Test Cases ***
+First Test Case
+    [Documentation]    This is the first test case to demonstrate the creation test cases in Robot Framework.
+    ...    DEPENDS_FROM_THE_PROJECT_WE_CAN_SHARE_LINK_TO_TEST_CASES_DESSIGN
+    ...
+    ...    *Steps / Expected*
+    ...    - Simple log to Robot Framework report / pass
+    ...
+    ...    *Requirements*
+    ...    - ITEM_NUMBER/NAME_FROM_REQUIREMENT_BOARD
+    ...
+    ...    *Expected*
+    ...    - We would like to verify that we can create a simple test case in Robot Framework and log information to the report.
+    Log    This is the first test case. We will log this information to the Robot Framework report.
+
 Zadanie - Loop
     [Documentation]    Napisz test, który otworzy stronę https://www.google.com,
     ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
@@ -57,25 +73,38 @@ Zadanie - WHILE Loop
     ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
     ${counter}    Set Variable    0
     WHILE    ${counter} < 5
-        ${status}    Run Keyword And Return Status    Log    Iteracja ${counter}
-        Run Keyword If    not ${status}    Log    Wystąpił błąd podczas logowania iteracji ${counter}
-        Run Keyword If    ${status}    Exit For Loop    # jeśli logowanie się powiodło, zakończ loop
+        ${status}    Run Keyword And Return Status    Log    iteration ${counter}
+        Run Keyword If    not ${status}    Log    An error occurred while logging the iteration ${counter}
+        Run Keyword If    ${status}    Exit For Loop    # if login was successful, exit loop
         ${counter}    Set Variable    ${counter} + 1
         Sleep    1s
     END
-    Wait Until Keyword Succeeds    3x    200ms    Log    Czekamy aż licznik osiągnie 5
+    Wait Until Keyword Succeeds    3x    200ms    Log    We exit at first pass
     
 Zadanie - Try Except
-    [Documentation]    Napisz test, który otworzy stronę https://www.google.com,
-    ...    wpisze w wyszukiwarkę "Robot Framework" i sprawdzi, czy na stronie wyników pojawi się tekst "robotframework.org".
+    [Documentation]    The purpose of this test is to present the usage of TRY / EXCEPT / FINALLY blocks in Robot Framework, 
+    ...    which allow us to handle exceptions and ensure that certain code is executed regardless of whether an error occurred or not.
+    ...    DEPENDS_FROM_THE_PROJECT_WE_CAN_SHARE_LINK_TO_TEST_CASES_DESSIGN
+    ...
+    ...    *Steps / Expected*
+    ...    - Execute TRY / fail
+    ...    - Execute EXPECT / fail
+    ...    - FINALLY / pass
+    ...
+    ...    *Requirements*
+    ...    - ITEM_NUMBER/NAME_FROM_REQUIREMENT_BOARD
+    ...
+    ...    *Expected*
+    ...    - We would like to verify that even if there is an error in TRY block, the test will not fail because we handle the exception in EXCEPT block, 
+    ...    and FINALLY block will be executed regardless of the error.
     TRY
-        Log    To jest próba wykonania keyworda, który może się nie powieść.
-        Fail    Celowo wywołujemy błąd, aby przetestować blok EXCEPT
+        Log    This is an attempt to execute keywords that may fail.
+        Fail    We deliberately trigger an error to test the EXCEPT block
     EXCEPT
-        Log    Wystąpił błąd podczas wykonywania keyworda. Obsługujemy wyjątek.
-        Fail    Test nie powiódł się z powodu błędu, ale został obsłużony w bloku EXCEPT.
+        Log    An error occurred while executing the keyword. We handle the exception.
+        Fail    he test failed due to an error, but it was handled in the EXCEPT block.
    FINALLY
-        Log    Ten blok zostanie wykonany niezależnie od tego, czy wystąpił błąd, czy nie.        
+        Log    This block will be executed regardless of whether an error occurred or not.
     END
 
 Zadanie - SKIP

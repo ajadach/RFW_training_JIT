@@ -1,6 +1,5 @@
 *** Settings ***
-Library    BuiltIn
-Library    Collections
+Resource          lib_handler.resource
 
 *** Variables ***
 ${KEYWORD_1}    Example Keyword
@@ -8,7 +7,25 @@ ${KEYWORD_2}    Another Keyword
 
 *** Keywords ***
 Keyword Loop Examples
-    [Documentation]    Mandatory Arguments
+    [Documentation]    Keyword Loop Examples where we show different types of loops in Robot Framework.
+        ...
+        ...    *Arguments*
+        ...    | =Name= | =Description= | =Example value= |
+        ...    | LIST_VAR | List of variables send as object $ | @{LIST_VAR}    Item 1    Item 2    Item 3    Item 4 |
+        ...    | INT_VAR | Integer variable | ${INT_VAR}    ${42} |
+        ...    | LIST_INT_VAR | List of integer variables send as object $ | @{LIST_INT_VAR}    ${12}    ${19}    ${25} |
+        ...
+        ...    *Steps:*
+        ...    - Execute loop with list variable
+        ...    - Execute loop with hardcoded values
+        ...    - Execute loop with range
+        ...    - Execute loop with range and variable
+        ...    - Execute loop with enumerate
+        ...    - Execute loop with zip        
+        ...
+        ...    *Return:*
+        ...    | =Description= | =Example value= |
+        ...    | Nothing | None |
     [Arguments]    ${LIST_VAR}    ${INT_VAR}    ${LIST_INT_VAR}
     FOR    ${i}    IN    @{LIST_VAR}
         Log    Iteracja ${i}
@@ -24,9 +41,9 @@ Keyword Loop Examples
     END
     FOR    ${index}    ${value}    IN ENUMERATE    @{LIST_VAR}
         Log    Iteracja ${index}: ${value}
-        FOR    ${item1}    ${item2}    IN ZIP    ${LIST_VAR}    ${LIST_INT_VAR}
-            Log    Iteracja: ${item1} - ${item2}    
-        END
+    END
+    FOR    ${item1}    ${item2}    IN ZIP    ${LIST_VAR}    ${LIST_INT_VAR}
+        Log    Iteracja: ${item1} - ${item2}    
     END
 
 Keyword Dict And Positional And Named Arguments  
