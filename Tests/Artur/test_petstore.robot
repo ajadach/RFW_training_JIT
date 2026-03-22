@@ -82,7 +82,6 @@ Petstore Via GK Resource
     fk_petstore.Pet: Create Pet    ${pet_body}
     gk_petstore.Pet: Get & Verify Pet By ID    ${${pet_body}}[id]    ${${pet_body}}[name]    ${${pet_body}}[status]
 
-
 Petstore Via GK Resource vol2
     [Documentation]    Test case for Petstore API using custom resource keywords.
     ...    DEPENDS_FROM_THE_PROJECT_WE_CAN_SHARE_LINK_TO_TEST_CASES_DESSIGN
@@ -92,3 +91,15 @@ Petstore Via GK Resource vol2
     ...    - Verify the pet is created successfully by checking the response status code and body. / pass
     [Tags]    petstore_resource_vol2
     gk_petstore.Pet: Create & Verify Pet By ID
+
+Petstore Via Lib
+    [Documentation]    Test case for Petstore API using custom library keywords.
+    ...    DEPENDS_FROM_THE_PROJECT_WE_CAN_SHARE_LINK_TO_TEST_CASES_DESSIGN
+    ...
+    ...    *Steps / Expected*
+    ...    - Create a new pet using custom library keyword that wraps POST /pet endpoint. / pass
+    ...    - Verify the pet is created successfully by checking the response status code and body. / pass
+    [Tags]    petstore_lib
+    fk_petstore_lib.LIB Open Session
+    ${pet_body}    fk_data_generator.Pet: Create Pet - Generate Json
+    fk_petstore_lib.LIB Pet: Create Pet    ${pet_body}
